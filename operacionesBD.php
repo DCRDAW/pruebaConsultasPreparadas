@@ -5,7 +5,7 @@ class Conexion{
     var $nombre=null;
     var $url=null;
     var $img=null;
-    var $statement=null;
+    var $stmt=null;
     function __construct() {
         require_once "configuracionBD.php";
         $this->mysqli = new mysqli(SERVIDOR,USUARIO, PASSWORD, DB);
@@ -14,10 +14,10 @@ class Conexion{
         $this->resultado=$this->mysqli->query($consulta);
     }*/
     public function consultaPreparada($consulta){
-       return $this->mysqli->prepare($consulta);
+       return $this->stmt=$this->mysqli->prepare($consulta);
     }
     public function asignarParametros(){
-       return $this->mysqli->bind_param("sss",$this->nombre,$this->url,$this->img);
+       return $this->stmt->bind_param("sss",$this->nombre,$this->url,$this->img);
     }
     public function setValores($nombre,$url,$img){
         $this->nombre=$nombre;
@@ -25,7 +25,7 @@ class Conexion{
         $this->img=$img;
     }
     public function ejecutar(){
-        $this->mysqli->execute();
+        $this->stmt->execute();
     }
     
 }
