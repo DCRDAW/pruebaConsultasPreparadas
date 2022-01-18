@@ -1,11 +1,11 @@
 <?php
     require_once 'operacionVideoJuego.php';
     $jogo= new VideoJuego();
+    $jogo->preparar();
     if(isset($_POST['enviar'])){
         $nombre="'".$_POST['nombre']."'";
         $url="'".$_POST['url']."'";
         $img="'".$_POST['img']."'";
-        $jogo->preparar();
         $jogo->ejecucion($nombre,$img,$url);
         echo '<button onclick="window.location.reload()">Recargar la pagina</button>';
     }else{
